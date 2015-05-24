@@ -19,10 +19,15 @@
 			<version>1.8</version>
 		</dependency>
 		<dependency>
-   			<groupId>com.sun.jersey</groupId>
-    		<artifactId>jersey-json</artifactId>
-    		<version>1.8</version>
-		</dependency>
+		 	<groupId>com.sun.jersey</groupId>
+        	<artifactId>jersey-servlet</artifactId>
+        	<version>1.17</version>
+        </dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>1.7.1</version>
+  		</dependency>
 		<!-- Below three jars are for spring IOC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -132,7 +137,6 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
 
 		<!-- Apache Commons Upload support -->
 		<dependency>

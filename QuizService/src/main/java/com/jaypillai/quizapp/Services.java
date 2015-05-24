@@ -16,6 +16,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.jaypillai.pojo.LoginData;
 import com.jaypillai.pojo.QuizData;
 
@@ -54,8 +56,8 @@ public class Services {
 	}
 	@Path("/get_quiz_list")
 	@GET
-	@Produces("application/json")
-	public List<String> GetQuizList() {
+	@Produces(MediaType.TEXT_PLAIN)
+	public String  GetQuizList() {
 		System.out.println("Inside GetQuizList");
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("SELECT distinct quizName FROM QuizData");
@@ -63,12 +65,12 @@ public class Services {
 		for(String q : list) {
 			System.out.println(q);
 		}
-		return list;
+		return new Gson().toJson(list);
 	}
 	@Path("add_question")
 	@GET
 	@Produces("application/json")
-	public QuizData AddQuestions(@QueryParam("quizname") String quizName) {
+	public String AddQuestions(@QueryParam("quizname") String quizName) {
 		System.out.println("Adding question to " + quizName);
 		// Generate question.
 		Random rand = new Random();
@@ -92,17 +94,17 @@ public class Services {
 		transaction.commit();
 		session.close();
 		
-		return newData;
+		return new Gson().toJson(newData);
 	}
 	@Path("get_questions/")
 	@GET
 	@Produces("application/json")
-	public List<QuizData> GetQuestions(@QueryParam("quizname") String quizName) {
+	public String GetQuestions(@QueryParam("quizname") String quizName) {
 		System.out.println("Getting questions of "+ quizName);
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("FROM QuizData WHERE quizName=:q");
 		query.setParameter("q", quizName);
 		List<QuizData> list = query.list();
-		return list;
+		return new Gson().toJson(list);
 	}
 }
